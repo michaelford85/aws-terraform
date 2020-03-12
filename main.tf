@@ -37,7 +37,7 @@ resource "aws_subnet" "terraform_subnet" {
 
 resource "aws_instance" "example" {
   count         = 5
-  ami           = "ami-0a887e401f7654935"
+  ami           = "ami-02eac2c0129f6376b"
   instance_type = "t2.micro"
   key_name      = "${aws_key_pair.generated_key.key_name}"
   subnet_id     = "${aws_subnet.terraform_subnet.id}"
