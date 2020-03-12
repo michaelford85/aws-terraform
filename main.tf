@@ -48,3 +48,9 @@ resource "aws_instance" "example" {
     demo  = "terraform-ansible"
   }
 }
+
+resource "local_file" "foo" {
+    content          = "${tls_private_key.mford-terraform-key.private_key_pem}"
+    filename         = "/tmp/terraform-aws-key.pem"
+    file_permission  = "0600"
+}
