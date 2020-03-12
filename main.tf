@@ -14,11 +14,35 @@ resource "aws_key_pair" "generated_key" {
 }
 
 
+resource "aws_vpc" "terraform_vpc" {
+  cidr_block = "192.168.0.0/24"
+
+  tags = {
+    Name = "Terraform VPC"
+    demo  = "terraform-ansible"
+  }
+}
+
+resource "aws_subnet" "terraform_subnet" {
+  vpc_id            = "${aws_vpc.terraform_vpc.id}"
+  cidr_block        = "192.168.0.0/28"
+  availability_zone = "us-east-1a"
+
+  tags = {
+    Name = "Terraform Subnet"
+    demo  = "terraform-ansible"
+  }
+}
+
+
 resource "aws_instance" "example" {
   count         = 5
   ami           = "ami-0a887e401f7654935"
   instance_type = "t2.micro"
   key_name      = "${aws_key_pair.generated_key.key_name}"
+  volume_size   = 10
+  subnet_id     = "${aws_subnet.terraform_subnet.id}"
+
 
   tags = {
     Name  = "Terraform-${count.index + 1}"
