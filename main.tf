@@ -51,7 +51,6 @@ resource "aws_route_table" "terraform_route_table" {
     gateway_id = "${aws_internet_gateway.terraform_igw.id}"
   }
 
-
   tags = {
     Name = "Terraform Route Table"
     demo  = "terraform-ansible"
