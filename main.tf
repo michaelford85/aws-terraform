@@ -43,19 +43,19 @@ resource "aws_subnet" "terraform_subnet" {
   }
 }
 
-resource "aws_route_table" "terraform_route_table" {
-  vpc_id = "${aws_vpc.terraform_vpc.id}"
+resource "aws_default_route_table" "terraform_route_table" {
+  default_route_table_id = "${aws_vpc.terraform_vpc.default_route_table_id}"
+
+  route {
+    cidr_block                = "0.0.0.0/0"
+    gateway_id                = "${aws_internet_gateway.terraform_igw.id}"
+
+  }
 
   tags = {
     Name = "Terraform Route Table"
     demo  = "terraform-ansible"
   }
-}
-
-resource "aws_route" "outbound_route" {
-  route_table_id            = "${aws_route_table.terraform_route_table.id}"
-  destination_cidr_block    = "0.0.0.0/0"
-  gateway_id                = "${aws_internet_gateway.terraform_igw.id}"
 }
 
 resource "aws_security_group" "terraform_webserver_sg" {
