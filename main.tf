@@ -34,10 +34,44 @@ resource "aws_subnet" "terraform_subnet" {
   }
 }
 
+resource "aws_security_group" "terraform_webserver_sg" {
+  name        = "webserver_sg"
+  description = "Allow TLS inbound traffic"
+  vpc_id      = "${aws_vpc.terraform_vpc.id}"
+
+  ingress {
+    description = "Allow HTTP"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    description = "Allow HTTPS"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    description = "SSH"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "terraform_webserver_sg"
+    demo  = "terraform-ansible"
+  }
+}
 
 resource "aws_instance" "example" {
   count         = 5
-  ami           = "ami-02eac2c0129f6376b"
+  ami           = "ami-0a887e401f7654935"
   instance_type = "t2.micro"
   key_name      = "${aws_key_pair.generated_key.key_name}"
   subnet_id     = "${aws_subnet.terraform_subnet.id}"
