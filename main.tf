@@ -53,8 +53,8 @@ resource "aws_route_table" "terraform_route_table" {
 
 
   tags = {
-  Name = "Terraform Route Table"
-  demo  = "terraform-ansible"
+    Name = "Terraform Route Table"
+    demo  = "terraform-ansible"
   }
 }
 
