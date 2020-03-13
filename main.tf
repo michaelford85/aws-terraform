@@ -76,6 +76,7 @@ resource "aws_instance" "example" {
   key_name      = "${aws_key_pair.generated_key.key_name}"
   subnet_id     = "${aws_subnet.terraform_subnet.id}"
   associate_public_ip_address = "true"
+  security_groups = ["${aws_security_group.terraform_webserver_sg.id}"]
 
 
   tags = {
