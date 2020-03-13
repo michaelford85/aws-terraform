@@ -35,7 +35,7 @@ resource "aws_subnet" "terraform_subnet" {
 }
 
 resource "aws_security_group" "terraform_webserver_sg" {
-  name        = "webserver_sg"
+  name        = "terraform_webserver_sg"
   description = "Allow TLS inbound traffic"
   vpc_id      = "${aws_vpc.terraform_vpc.id}"
 
