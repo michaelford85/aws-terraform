@@ -10,7 +10,7 @@ resource "tls_private_key" "mford-terraform-key" {
 
 resource "aws_key_pair" "generated_key" {
   key_name   = "terraform-aws-key"
-  public_key = "${tls_private_key.mford-terraform-key.public_key_pem}"
+  public_key = "${tls_private_key.mford-terraform-key.public_key_openssh}"
 }
 
 
